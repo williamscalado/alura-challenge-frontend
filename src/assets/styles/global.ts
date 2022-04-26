@@ -4,7 +4,8 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
 
 :root {
-    --background: #F0F2F5;
+    --background: #283a50;
+    --background-white: #FFFFFF;
     --background-header: #283a50;
     --buttonheader: #02849B; 
     --red:#E62E4D;
@@ -35,6 +36,7 @@ export const GlobalStyle = createGlobalStyle`
 }
 
 body{
+    margin: 0;
     background-color: var(--background);
     font-size: 16;
     -webkit-font-smoothing: antialiased;
