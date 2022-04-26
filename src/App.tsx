@@ -1,7 +1,8 @@
 import Modal from "react-modal";
 import { BrowserRouter } from "react-router-dom";
-import { GlobalStyle } from "./assets/styles/global";
+import { ToastContainer } from "react-toastify";
 import { RoutesApp } from "./routes";
+import { GlobalStyle } from "./styles/global";
 
 Modal.setAppElement("#root");
 
@@ -11,6 +12,7 @@ function App() {
       <BrowserRouter>
         <GlobalStyle />
         <RoutesApp />
+        <ToastContainer />
       </BrowserRouter>
     </>
   );
