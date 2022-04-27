@@ -1,15 +1,21 @@
 import axios from "axios";
+import { getToken } from "./auth";
 
-
-export const Api = axios.create({
+const Api = axios.create({
     baseURL: "http://localhost:4000",
     headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
     },
-    withCredentials: false
-})
+    withCredentials: false,
+});
 
+Api.interceptors.request.use((config) => {
+    const token = getToken();
+    config.headers = {
+        "x-access-token": `${token}`,
+    };
+    return config;
+});
 
-
-
+export default Api;
