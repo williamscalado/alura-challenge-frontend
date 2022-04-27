@@ -9,9 +9,10 @@ export const AuthLogin = (token: string) => {
     localStorage.setItem(TOKEN_KEY as string, token)
 }
 export const getToken = () => localStorage.getItem(TOKEN_KEY);
+
 export const isAuthenticated = () => {
 
-    const tokenLocal = localStorage.getItem(TOKEN_KEY) as string;
+    const tokenLocal = getToken();
     if (!tokenLocal) return false
     const { exp }: ITokenProps = jwt_decode(tokenLocal)
     const dateNow = new Date().getTime()

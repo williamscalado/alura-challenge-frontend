@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export function formatCurrency(valeu: number) {
 
@@ -22,4 +23,9 @@ export const currencyMask = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.target.value = ValueInput
 
     return e
+}
+
+export function Redirect(to: string) {
+    const navigate = useNavigate()
+    navigate(to)
 }
