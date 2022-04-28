@@ -45,9 +45,12 @@ export const NewUserForm = () => {
         name: name,
         email: email,
       };
-      console.log(dataForm);
+
       await validateDataForm(dataForm);
       await createNewUser(dataForm);
+      toast.success(
+        "Usuario cadastrado com sucesso, senha enviada por e-mail!"
+      );
       navigate("/login");
     } catch (error: Error | any) {
       toast.error(error.message);
