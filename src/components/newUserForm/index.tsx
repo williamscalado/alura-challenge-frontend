@@ -5,30 +5,30 @@ import { toast } from "react-toastify";
 import * as yup from "yup";
 import Api from "../../services/Api";
 import { AuthLogin } from "../../services/auth";
-import { ContainerLogin, FormLogin } from "./style";
+import { ContainerNewUser, FormNewUser } from "./style";
 interface Ilogin {
   email: string;
-  password: string;
+  name: string;
 }
 let schema = yup.object().shape({
   email: yup
     .string()
     .required("Digite um email")
     .email("Digite um email válido"),
-  password: yup
+  nome: yup
     .string()
-    .min(6, "A senha deve ter no mínimo 6 caracteres")
-    .required("Digite uma senha"),
+    .required("Digite seu nome")
+    .min(4, "Precisamos de seu nome completo"),
 });
+const navigate = useNavigate();
 
-export const LoginForm = () => {
-  const navigate = useNavigate();
+export const newUserForm = () => {
   const [email, setEmail] = useState<string>("");
-  const [password, setPassoword] = useState<string>("");
+  const [name, setName] = useState<string>("");
 
   const processLogin = async (data: Ilogin) => {
     try {
-      const result = await Api.post("/login", data);
+      const result = await Api.post("/user", data);
       const tokenLogin = result.data.token;
       if (!tokenLogin) throw new Error();
       AuthLogin(tokenLogin);
@@ -47,7 +47,7 @@ export const LoginForm = () => {
     try {
       const dataForm: Ilogin = {
         email: email,
-        password: password,
+        name: name,
       };
 
       await validateDataForm(dataForm);
@@ -59,8 +59,17 @@ export const LoginForm = () => {
   };
 
   return (
-    <ContainerLogin>
-      <FormLogin onSubmit={handleSubmit}>
+    <ContainerNewUser>
+      <FormNewUser onSubmit={handleSubmit}>
+        <label htmlFor="">Nome</label>
+        <input
+          id="nome"
+          name="nome"
+          type="text"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setName(e.target.value)
+          }
+        />
         <label htmlFor="">E-mail</label>
         <input
           id="email"
@@ -70,20 +79,12 @@ export const LoginForm = () => {
             setEmail(e.target.value)
           }
         />
-        <label htmlFor="">Senha</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPassoword(e.target.value)
-          }
-        />
+
         <button type="submit">Fazer Login</button>
         <button type="button" className="new-user-button">
           Novo por aqui? faça seu cadastro!
         </button>
-      </FormLogin>
-    </ContainerLogin>
+      </FormNewUser>
+    </ContainerNewUser>
   );
 };

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { Home } from "../pages/home";
 import { Login } from "../pages/login";
+import { NewUser } from "../pages/new-user";
 import { isAuthenticated } from "../services/auth";
 
 export const RoutesApp = () => {
@@ -21,6 +22,7 @@ export const RoutesApp = () => {
     <Routes>
       <Route path="/" element={[PrivateRoute(), <Home />]} />
       <Route path="/login" element={<Login />}></Route>
+      <Route path="/new-user" element={<NewUser />}></Route>
       <Route path="*" element={<Navigate to="/" replace />}></Route>
     </Routes>
   );

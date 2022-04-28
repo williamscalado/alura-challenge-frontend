@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ContainerLogin = styled.div`
+export const ContainerNewUser = styled.div`
 margin-top: 4rem;
 margin: 0 auto;
 width: 1120px;
@@ -9,7 +9,7 @@ display: flex;
 justify-content: center;
 `
 
-export const FormLogin = styled.form`
+export const FormNewUser = styled.form`
 margin: auto;
 background: var(--background-white);
 padding: 2rem;
