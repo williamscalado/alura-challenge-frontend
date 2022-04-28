@@ -1,4 +1,5 @@
 import jwt_decode from 'jwt-decode'
+import { useNavigate } from 'react-router-dom'
 
 interface ITokenProps {
     exp: number
@@ -24,6 +25,4 @@ export const isAuthenticated = () => {
     return true
 
 }
-export const logout = () => {
-    localStorage.removeItem(TOKEN_KEY);
-};
+export const logout = () => localStorage.removeItem(TOKEN_KEY);

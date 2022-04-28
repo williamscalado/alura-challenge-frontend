@@ -15,7 +15,10 @@ const validateRulesForm = yup.object().shape({
     .string()
     .required("Digite seu nome")
     .min(6, "Precisamos do seu nome completo"),
-  email: yup.string().email().required("Digite seu email"),
+  email: yup
+    .string()
+    .email("Digite uma e-mail válido")
+    .required("Digite seu email"),
 });
 
 export const NewUserForm = () => {

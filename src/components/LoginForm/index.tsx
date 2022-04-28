@@ -11,14 +11,14 @@ interface Ilogin {
   password: string;
 }
 let schema = yup.object().shape({
-  email: yup
-    .string()
-    .required("Digite um email")
-    .email("Digite um email válido"),
   password: yup
     .string()
     .min(6, "A senha deve ter no mínimo 6 caracteres")
     .required("Digite uma senha"),
+  email: yup
+    .string()
+    .required("Digite um email")
+    .email("Digite um email válido"),
 });
 
 export const LoginForm = () => {
