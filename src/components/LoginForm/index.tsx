@@ -1,4 +1,6 @@
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import Api from "../../services/Api";
@@ -8,57 +10,75 @@ interface Ilogin {
   email: string;
   password: string;
 }
+let schema = yup.object().shape({
+  email: yup
+    .string()
+    .required("Digite um email")
+    .email("Digite um email válido"),
+  password: yup
+    .string()
+    .min(6, "A senha deve ter no mínimo 6 caracteres")
+    .required("Digite uma senha"),
+});
 
 export const LoginForm = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassoword] = useState<string>("");
+
+  const processLogin = async (data: Ilogin) => {
+    try {
+      const result = await Api.post("/login", data);
+      const tokenLogin = result.data.token;
+      if (!tokenLogin) throw new Error();
+      AuthLogin(tokenLogin);
+    } catch (error: Error | any) {
+      throw new Error("Email ou senha inválidos");
+    }
+  };
+
+  const validateDataForm = async (data: Ilogin) => {
+    const validateData = await schema.validate(data);
+    if (validateData.message) throw new Error(validateData.message);
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    try {
+      const dataForm: Ilogin = {
+        email: email,
+        password: password,
+      };
 
-    const { email, password } = document.forms[0];
-    const emailForm = email.value;
-    const passwordForm = password.value;
-
-    let schema = yup.object().shape({
-      email: yup
-        .string()
-        .required("Digite um email")
-        .email("Digite um email válido"),
-      password: yup
-        .string()
-        .min(6, "A senha deve ter no mínimo 6 caracteres")
-        .required("Digite uma senha"),
-    });
-
-    const dataForm: Ilogin = {
-      email: emailForm,
-      password: passwordForm,
-    };
-
-    const validateData = await schema.validate(dataForm).catch((err) => err);
-    if (validateData.message) {
-      toast.error(validateData.message);
-      return false;
+      await validateDataForm(dataForm);
+      await processLogin(dataForm);
+      navigate("/");
+    } catch (error: Error | any) {
+      toast.error(error.message);
     }
-
-    await Api.post("/login", dataForm)
-      .then((res) => {
-        const tokenLogin = res.data.token;
-        if (!tokenLogin) toast.error("Erros ao processar seus dados!");
-        AuthLogin(tokenLogin);
-        console.log(tokenLogin);
-        // ... continua
-      })
-      .catch((error) => {
-        toast.error("Email ou senha inválido(s)");
-      });
   };
 
   return (
     <ContainerLogin>
       <FormLogin onSubmit={handleSubmit}>
         <label htmlFor="">E-mail</label>
-        <input id="email" name="email" type="text" />
+        <input
+          id="email"
+          name="email"
+          type="text"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
+        />
         <label htmlFor="">Senha</label>
-        <input id="password" name="password" type="password" />
+        <input
+          id="password"
+          name="password"
+          type="password"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassoword(e.target.value)
+          }
+        />
         <button>Fazer Login</button>
       </FormLogin>
     </ContainerLogin>
