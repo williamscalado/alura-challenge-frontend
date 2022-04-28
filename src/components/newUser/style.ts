@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ContainerLogin = styled.div`
+export const ContainerNewUser = styled.div`
 margin: 0;
 background-color: var(--background-header);
 padding: 2rem 2rem 8rem;

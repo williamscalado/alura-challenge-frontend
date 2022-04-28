@@ -1,58 +1,54 @@
-import { FormEvent, useState } from "react";
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import * as yup from "yup";
-import Api from "../../services/Api";
-import { AuthLogin } from "../../services/auth";
 import { ContainerNewUser, FormNewUser } from "./style";
-interface Ilogin {
-  email: string;
+import * as yup from "yup";
+import { ObjectShape } from "yup/lib/object";
+import { toast } from "react-toastify";
+import Api from "../../services/Api";
+import { FormEvent, useState } from "react";
+
+interface INewUser {
   name: string;
+  email: string;
 }
-let schema = yup.object().shape({
-  email: yup
-    .string()
-    .required("Digite um email")
-    .email("Digite um email válido"),
-  nome: yup
+const validateRulesForm = yup.object().shape({
+  name: yup
     .string()
     .required("Digite seu nome")
-    .min(4, "Precisamos de seu nome completo"),
+    .min(6, "Precisamos do seu nome completo"),
+  email: yup.string().email().required("Digite seu email"),
 });
-const navigate = useNavigate();
 
-export const newUserForm = () => {
-  const [email, setEmail] = useState<string>("");
+export const NewUserForm = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
 
-  const processLogin = async (data: Ilogin) => {
-    try {
-      const result = await Api.post("/user", data);
-      const tokenLogin = result.data.token;
-      if (!tokenLogin) throw new Error();
-      AuthLogin(tokenLogin);
-    } catch (error: Error | any) {
-      throw new Error("Email ou senha inválidos");
-    }
+  const validateDataForm = async (data: INewUser) => {
+    const result = await validateRulesForm.validate(data);
+    if (result.message) throw new Error(result.message);
   };
 
-  const validateDataForm = async (data: Ilogin) => {
-    const validateData = await schema.validate(data);
-    if (validateData.message) throw new Error(validateData.message);
+  const createNewUser = async (data: INewUser) => {
+    try {
+      const result = await Api.post("/user", data);
+      return result;
+    } catch (error: Error | any) {
+      throw new Error(error.response.data.message);
+    }
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    try {
-      const dataForm: Ilogin = {
-        email: email,
-        name: name,
-      };
 
+    try {
+      const dataForm: INewUser = {
+        name: name,
+        email: email,
+      };
+      console.log(dataForm);
       await validateDataForm(dataForm);
-      await processLogin(dataForm);
-      navigate("/");
+      await createNewUser(dataForm);
+      navigate("/login");
     } catch (error: Error | any) {
       toast.error(error.message);
     }
@@ -61,28 +57,29 @@ export const newUserForm = () => {
   return (
     <ContainerNewUser>
       <FormNewUser onSubmit={handleSubmit}>
+        <h1>Novo usuário</h1>
         <label htmlFor="">Nome</label>
         <input
           id="nome"
           name="nome"
           type="text"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setName(e.target.value)
-          }
+          onChange={(e) => setName(e.target.value)}
         />
         <label htmlFor="">E-mail</label>
         <input
           id="email"
           name="email"
           type="text"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
+          onChange={(e) => setEmail(e.target.value)}
         />
 
-        <button type="submit">Fazer Login</button>
-        <button type="button" className="new-user-button">
-          Novo por aqui? faça seu cadastro!
+        <button type="submit">Enviar dados </button>
+        <button
+          type="button"
+          className="login-button"
+          onClick={() => navigate("/login")}
+        >
+          Já é cadastrado? clique aqui!
         </button>
       </FormNewUser>
     </ContainerNewUser>

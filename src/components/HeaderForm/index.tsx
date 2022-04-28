@@ -1,7 +1,7 @@
 import logoImg from "../../assets/challenges-logo-2.svg";
 import { Conteiner, Content } from "./style";
 
-export function HeaderLogin() {
+export function HeaderForm() {
   return (
     <Conteiner>
       <Content>

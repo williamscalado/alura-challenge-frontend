@@ -1,13 +1,9 @@
 import styled from "styled-components";
 
 export const ContainerNewUser = styled.div`
-margin-top: 4rem;
-margin: 0 auto;
-width: 1120px;
-padding: 1rem 2rem;
-display: flex;
-justify-content: center;
+margin: 0;
 `
+
 
 export const FormNewUser = styled.form`
 margin: auto;
@@ -47,14 +43,14 @@ border-radius: 1rem;
         border-radius: 0.5rem;
         height: 4rem;
         margin-top: 1rem;
-        background-color: var(--green-select);
+        background-color: var(--blue-light);
         transition: filter 0.3s;
 
         &:hover{
             filter: brightness(0.9);
         }
     }
- .new-user-button{
+ .login-button{
 
         color:#FFF;
         width: 100%;
@@ -64,7 +60,7 @@ border-radius: 1rem;
         border-radius: 0.5rem;
         height: 4rem;
         margin-top: 1rem;
-        background-color: var(--blue-light);
+        background-color: var(--green-light);
         transition: filter 0.3s;
 
         &:hover{
@@ -77,3 +73,5 @@ border-radius: 1rem;
 
 
 `
+
+

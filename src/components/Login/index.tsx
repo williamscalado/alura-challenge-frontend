@@ -1,11 +1,11 @@
-import { HeaderLogin } from "../HeaderLogin";
+import { HeaderForm } from "../HeaderForm";
 import { LoginForm } from "../LoginForm";
 import { ContainerLogin } from "./style";
 
 export const LoginDashboard = () => {
   return (
     <ContainerLogin>
-      <HeaderLogin />
+      <HeaderForm />
       <LoginForm />
     </ContainerLogin>
   );

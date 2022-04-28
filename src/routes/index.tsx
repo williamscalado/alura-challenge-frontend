@@ -13,16 +13,16 @@ export const RoutesApp = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       if (!LoggedIn) {
-        navigate("/login");
+        // navigate("/login");
       }
     }, [LoggedIn]);
   };
 
   return (
     <Routes>
-      <Route path="/" element={[PrivateRoute(), <Home />]} />
       <Route path="/login" element={<Login />}></Route>
       <Route path="/new-user" element={<NewUser />}></Route>
+      <Route path="/" element={[PrivateRoute(), <Home />]} />
       <Route path="*" element={<Navigate to="/" replace />}></Route>
     </Routes>
   );

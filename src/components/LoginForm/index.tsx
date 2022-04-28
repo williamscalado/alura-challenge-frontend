@@ -80,7 +80,11 @@ export const LoginForm = () => {
           }
         />
         <button type="submit">Fazer Login</button>
-        <button type="button" className="new-user-button">
+        <button
+          type="button"
+          className="new-user-button"
+          onClick={() => navigate("/new-user")}
+        >
           Novo por aqui? faça seu cadastro!
         </button>
       </FormLogin>

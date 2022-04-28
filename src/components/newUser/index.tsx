@@ -1,12 +1,14 @@
-import { HeaderLogin } from "../HeaderLogin";
-import { FormNewUser } from "../newUserForm/style";
-import { ContainerLogin } from "./style";
+import { HeaderForm } from "../HeaderForm";
+import { NewUserForm } from "../newUserForm";
+import { ContainerNewUser } from "./style";
 
 export const NewUserDashboard = () => {
   return (
-    <ContainerLogin>
-      <HeaderLogin />
-      <FormNewUser />
-    </ContainerLogin>
+    <>
+      <ContainerNewUser>
+        <HeaderForm />
+        <NewUserForm />
+      </ContainerNewUser>
+    </>
   );
 };
