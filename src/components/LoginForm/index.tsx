@@ -33,7 +33,7 @@ export const LoginForm = () => {
       if (!tokenLogin) throw new Error();
       AuthLogin(tokenLogin);
     } catch (error: Error | any) {
-      throw new Error("Email ou senha inválidos");
+      throw new Error(error.response.data.message);
     }
   };
 

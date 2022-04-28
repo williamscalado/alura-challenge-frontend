@@ -13,7 +13,7 @@ export const RoutesApp = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       if (!LoggedIn) {
-        // navigate("/login");
+        navigate("/login");
       }
     }, [LoggedIn]);
   };
