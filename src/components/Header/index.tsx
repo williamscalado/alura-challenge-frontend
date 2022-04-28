@@ -13,9 +13,14 @@ export function Header() {
   return (
     <Conteiner>
       <Content>
-        <img src={logoImg} id="logo" alt="My Money " />
+        <img
+          src={logoImg}
+          id="logo"
+          alt="My Money"
+          onClick={() => navigate("/")}
+        />
         <ContentButtons>
-          <button>Enviar transações </button>
+          <button onClick={() => navigate("upload")}>Enviar transações </button>
           <button>Listar transações </button>
           <button>Usuários</button>
           <button onClick={handleLogout}>Sair</button>

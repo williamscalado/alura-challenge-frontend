@@ -8,6 +8,9 @@ export const GlobalStyle = createGlobalStyle`
     --background-white: #FFFFFF;
     --background-header: #283a50;
     --buttonheader: #02849B; 
+    --button-upload: #02849B; 
+    
+    
     --red:#E62E4D;
     --blue: #5429CC;
     --blue-light: #6933ff;
