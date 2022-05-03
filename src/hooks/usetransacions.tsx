@@ -36,7 +36,6 @@ export const TransactionsProvider = ({
   };
   useEffect(() => {
     getAllRecordUpload();
-    console.log("ok");
   }, []);
 
   getAllRecordUpload();

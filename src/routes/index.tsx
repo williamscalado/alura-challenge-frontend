@@ -25,6 +25,10 @@ export const RoutesApp = () => {
       <Route path="/new-user" element={<NewUser />}></Route>
       <Route path="/" element={[PrivateRoute(), <Home />]} />
       <Route path="/upload" element={[PrivateRoute(), <Upload />]} />
+      <Route
+        path="/transactions-summary/:id"
+        element={[PrivateRoute(), <Upload />]}
+      />
       <Route path="*" element={<Navigate to="/" replace />}></Route>
     </Routes>
   );
