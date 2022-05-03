@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { DetailsTransactions } from "../pages/details-transactions";
 import { Home } from "../pages/home";
 import { Login } from "../pages/login";
 import { NewUser } from "../pages/new-user";
@@ -27,7 +28,7 @@ export const RoutesApp = () => {
       <Route path="/upload" element={[PrivateRoute(), <Upload />]} />
       <Route
         path="/transactions-summary/:id"
-        element={[PrivateRoute(), <Upload />]}
+        element={[PrivateRoute(), <DetailsTransactions />]}
       />
       <Route path="*" element={<Navigate to="/" replace />}></Route>
     </Routes>
