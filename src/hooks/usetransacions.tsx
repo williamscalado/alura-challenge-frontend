@@ -6,16 +6,33 @@ interface ITransactionsProviderProps {
   children: ReactNode;
 }
 
-interface ITransactionsRecordUpload {
+export interface ITransactionsRecordUpload {
   id: number;
   idUser: number;
   dateTransactions: Date;
   dateUpload: Date;
 }
 
+export interface ITransactionData {
+  id: string;
+  userId?: string;
+  idUpload: number;
+  origBank: string;
+  origBranch: string;
+  origAccount: string;
+  destBank: string;
+  destBranch: string;
+  destAccount: string;
+  transactionAmount: string;
+  dateTimerTransaction: Date;
+  [key: string]: any;
+}
+
 interface ITransactionsContextProps {
   transactionsUpload: ITransactionsRecordUpload[];
   getAllRecordUpload: () => Promise<void>;
+  transactions: ITransactionData[];
+  getTransactionsByIdUpload: (id: string) => Promise<void> | any;
 }
 
 const TransactionsContext = createContext<ITransactionsContextProps>(
@@ -25,24 +42,40 @@ const TransactionsContext = createContext<ITransactionsContextProps>(
 export const TransactionsProvider = ({
   children,
 }: ITransactionsProviderProps) => {
-  const [transactionsUpload, setTransactionsUpload] = useState<
-    ITransactionsRecordUpload[]
-  >([]);
+  const [transactionsUpload, setTransactionsUpload] = useState<ITransactionsRecordUpload[]>([]);
+  const [transactions, setTransactions] = useState<ITransactionData[]>([]);
 
-  const getAllRecordUpload = async () => {
+  const getAllRecordUpload = React.useCallback(async () => {
     const result = await Api.get("/transactions-upload");
 
-    if (result) setTransactionsUpload(result.data);
-  };
+    if (!transactionsUpload.length) {
+      setTransactionsUpload(result.data);
+    }
+
+  }, [transactionsUpload.length]);
+
   useEffect(() => {
     getAllRecordUpload();
-  }, []);
+  }, [getAllRecordUpload]);
 
-  getAllRecordUpload();
+
+  const getTransactionsByIdUpload = async (id: string) => {
+    if (!id) return;
+    const result = await Api.get(`/transactions/${id}`);
+    if (result.data) return result.data;
+
+  };
+
+
 
   return (
     <TransactionsContext.Provider
-      value={{ transactionsUpload, getAllRecordUpload }}
+      value={{
+        transactionsUpload,
+        getAllRecordUpload,
+        transactions,
+        getTransactionsByIdUpload,
+      }}
     >
       {children}
     </TransactionsContext.Provider>

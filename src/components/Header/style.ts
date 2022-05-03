@@ -6,7 +6,7 @@ padding: 2rem 2rem 8rem;
 `;
 
 export const Content = styled.div`
-margin: 0 auto;
+margin: auto;
 max-width: 1120px;
 display: flex;
 align-items: center;

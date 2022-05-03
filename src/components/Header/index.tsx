@@ -26,6 +26,7 @@ export function Header() {
           <button onClick={handleLogout}>Sair</button>
         </ContentButtons>
       </Content>
+
     </Conteiner>
   );
 }

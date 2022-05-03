@@ -13,8 +13,13 @@ export function formatCurrency(valeu: number) {
 
 
 export function formatDate(date: Date) {
+    if (!date) return
 
-    return new Intl.DateTimeFormat('pt-br').format(new Date(date))
+    return new Intl.DateTimeFormat('pt-br', {
+        year: 'numeric', month: 'numeric', day: 'numeric',
+        hour: 'numeric', minute: 'numeric', second: 'numeric',
+        hour12: false,
+    }).format(new Date(date))
 }
 
 export const currencyMask = (e: React.ChangeEvent<HTMLInputElement>) => {
