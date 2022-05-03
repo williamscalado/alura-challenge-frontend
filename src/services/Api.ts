@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "./auth";
+import { getToken, logout } from "./auth";
 
 const Api = axios.create({
     baseURL: "http://localhost:4000",
@@ -17,5 +17,7 @@ Api.interceptors.request.use((config) => {
     };
     return config;
 });
+
+
 
 export default Api;

@@ -68,6 +68,7 @@ export const NewUserForm = () => {
         <input
           id="nome"
           name="nome"
+          inputMode="email"
           type="text"
           onChange={(e) => setName(e.target.value)}
         />
@@ -75,6 +76,7 @@ export const NewUserForm = () => {
         <input
           id="email"
           name="email"
+          inputMode="email"
           type="text"
           onChange={(e) => setEmail(e.target.value)}
         />

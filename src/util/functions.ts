@@ -12,6 +12,11 @@ export function formatCurrency(valeu: number) {
 }
 
 
+export function formatDate(date: Date) {
+
+    return new Intl.DateTimeFormat('pt-br').format(new Date(date))
+}
+
 export const currencyMask = (e: React.ChangeEvent<HTMLInputElement>) => {
 
     let ValueInput = e.target.value
