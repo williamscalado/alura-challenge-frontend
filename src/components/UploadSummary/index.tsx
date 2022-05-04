@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useTransactions } from "../../hooks/usetransacions";
+import { ITransactionsRecordUpload, useTransactions } from "../../hooks/usetransacions";
 import { formatDate } from "../../util/functions";
 import { ContainerSummary } from "./style";
 
@@ -10,6 +10,17 @@ export const UploadSummary = () => {
 
 
   const navigate = useNavigate();
+
+
+  const [summaryUpload, setSummaryUpload] = useState<ITransactionsRecordUpload[]>([])
+
+  useEffect(() => {
+    async function loadSummaryUpload() {
+      setSummaryUpload(transactionsUpload)
+    }
+    loadSummaryUpload()
+  }, [transactionsUpload])
+
 
   const handleDetailsTransactions = async (id: number) => {
     if (!id) {
@@ -34,7 +45,7 @@ export const UploadSummary = () => {
             </tr>
           </thead>
           <tbody>
-            {transactionsUpload.map((data) => {
+            {summaryUpload.map((data) => {
               return (
                 <tr key={data.id}>
                   <td>{formatDate(data.dateTransactions)}</td>

@@ -20,8 +20,7 @@ export function Header() {
           onClick={() => navigate("/")}
         />
         <ContentButtons>
-          <button onClick={() => navigate("upload")}>Enviar transações </button>
-          <button>Listar transações </button>
+          <button onClick={() => navigate("/upload")}>Transações </button>
           <button>Usuários</button>
           <button onClick={handleLogout}>Sair</button>
         </ContentButtons>
