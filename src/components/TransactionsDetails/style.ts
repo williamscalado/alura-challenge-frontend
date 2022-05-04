@@ -11,6 +11,9 @@ h1{
      padding: 0.5rem;
     font-size: 1.5rem;
 }
+h4{
+    margin: 0 1rem;
+}
 
 span{
     padding: 0.5rem;
@@ -41,10 +44,7 @@ table {
         color: var(--text-title);
         justify-content: center;
         justify-items: center;
-        text-align: center; 
-            
-        
-        
+        text-align: center;  
        
         &:first-child{            
             font-weight: 600;

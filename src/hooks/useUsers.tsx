@@ -6,7 +6,7 @@ import Api from "../services/Api";
 interface IUserProps {
     children: ReactNode
 }
-interface IUser {
+export interface IUser {
     id: number,
     fullName: string,
     email: string,
@@ -24,11 +24,11 @@ const userContext = createContext<IUserContextProps>(
 export const UserProvider = ({ children }: IUserProps) => {
     const [allUsers, setAllUsers] = useState<IUser[]>([])
 
-    const getAllUser = async () => (await Api.get('/user')).data;
+    const getAllUser = async () => (await Api.get('/user')).data
 
     useEffect(() => {
         async function loadUsers() {
-            if (!allUsers) {
+            if (!allUsers.length) {
                 const resultUser = await getAllUser()
                 setAllUsers(resultUser)
             }

@@ -1,19 +1,19 @@
-import { equal } from "assert";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { isDeepStrictEqual } from "util";
-import { ITransactionData, useTransactions, ITransactionsRecordUpload } from "../../hooks/usetransacions";
-import Api from "../../services/Api";
+import { ITransactionData, useTransactions } from "../../hooks/usetransacions";
+import { useUser } from "../../hooks/useUsers";
 import { formatCurrency, formatDate } from "../../util/functions";
 import { ContainerDetailsTransactions } from "./style";
 
 export const DetailsTransactionsDashboard = () => {
 
-    const { id } = useParams();
+    const { id } = useParams() || "0";
     const { transactionsUpload, getTransactionsByIdUpload, transactions } = useTransactions();
+    const { allUsers } = useUser()
 
 
     const [data, setData] = useState<ITransactionData[]>([])
+
     const uploadData = transactionsUpload.find((res) => id ? res.id === +id : null);
 
     useEffect(() => {
@@ -25,14 +25,15 @@ export const DetailsTransactionsDashboard = () => {
 
     }, [getTransactionsByIdUpload, id])
 
+    const userName = allUsers?.filter((res) => res.id === uploadData?.idUser).map(res => res.fullName)
 
     return (
         <>
             <ContainerDetailsTransactions>
                 <h1>Detalhes da Importação</h1>
-                <span>Data da importação: {formatDate(uploadData?.dateUpload as Date)} </span>
-                <span>Importado por:  {uploadData?.idUser}</span>
-                <span>Data da Transação: {formatDate(uploadData?.dateTransactions as Date)}</span>
+                <span><h4>Data da importação: </h4> {formatDate(uploadData?.dateUpload as Date)} </span>
+                <span><h4>Importado por: </h4>  {userName}</span>
+                <span><h4>Data da Transação: </h4> {formatDate(uploadData?.dateTransactions as Date)}</span>
                 <h1>Transações Importadas</h1>
                 <table>
                     <thead>

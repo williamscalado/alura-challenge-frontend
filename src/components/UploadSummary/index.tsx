@@ -6,12 +6,8 @@ import { formatDate } from "../../util/functions";
 import { ContainerSummary } from "./style";
 
 export const UploadSummary = () => {
-  const { transactionsUpload, getTransactionsByIdUpload, transactions } = useTransactions();
-
-
+  const { transactionsUpload } = useTransactions();
   const navigate = useNavigate();
-
-
   const [summaryUpload, setSummaryUpload] = useState<ITransactionsRecordUpload[]>([])
 
   useEffect(() => {
@@ -46,8 +42,10 @@ export const UploadSummary = () => {
           </thead>
           <tbody>
             {summaryUpload.map((data) => {
+
               return (
-                <tr key={data.id}>
+
+                <tr key={Math.floor(Math.random() * 100)}>
                   <td>{formatDate(data.dateTransactions)}</td>
                   <td>{formatDate(data.dateUpload)}</td>
 
